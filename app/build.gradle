@@ -21,6 +21,11 @@ android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
 
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+
     defaultConfig {
         applicationId "se.jku.at.handwerkmobileclient"
         minSdkVersion 15
@@ -41,4 +46,11 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.1.1'
     apt "org.androidannotations:androidannotations:$AAVersion"            // add these
     compile "org.androidannotations:androidannotations-api:$AAVersion"    // two lines
+    compile 'org.glassfish.jersey.core:jersey-client:2.17'
+//    compile 'org.glassfish.hk2.external:javax.inject:2.4.0-b10'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.5.3'
+}
+
+configurations {
+    compile.exclude group: 'javax.inject', module: 'javax.inject'
 }
