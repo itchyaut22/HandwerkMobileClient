@@ -49,6 +49,7 @@ dependencies {
     compile 'org.glassfish.jersey.core:jersey-client:2.17'
 //    compile 'org.glassfish.hk2.external:javax.inject:2.4.0-b10'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.5.3'
+    testCompile 'junit:junit:4.12'
 }
 
 configurations {

@@ -28,13 +28,16 @@ import javax.ws.rs.core.UriBuilder;
 
 import se.jku.at.handwerkmobileclient.model.Manufacturer;
 import se.jku.at.handwerkmobileclient.model.ManufacturerList;
+import se.jku.at.handwerkmobileclient.model.Service;
+import se.jku.at.handwerkmobileclient.model.ServiceList;
+import se.jku.at.handwerkmobileclient.rest.HandwerkResource;
+import se.jku.at.handwerkmobileclient.rest.impl.HandwerkResourceImpl;
+import se.jku.at.handwerkmobileclient.rest.impl.RestHelper;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends Activity {
 
     public static final String version = "v3";
-
-    private Client client;
 
     @ViewById(R.id.button1)
     Button button1;
@@ -49,50 +52,27 @@ public class MainActivity extends Activity {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-
-        client = ClientBuilder.newClient().register(AndroidFriendlyFeature.class);
     }
 
     @Click(R.id.button1)
     public void Button1Click() {
-        WebTarget service = client.target(getBaseURIOnline());
-        service = service.path(version).path("manufacturers");
-        Invocation.Builder builder = service.request().accept(MediaType.APPLICATION_JSON);
-        Response response = builder.get();
-        String json = response.readEntity(String.class);
-        ObjectMapper mapper = new ObjectMapper();
-        ManufacturerList list = new ManufacturerList();
-        try {
-            list = mapper.readValue(json, ManufacturerList.class);
-            Log.d(MainActivity.class.getName(), json);
-            for (Manufacturer m : list.getList()) {
+        final HandwerkResource handwerkResource = new HandwerkResourceImpl();
+
+        ManufacturerList manufacturerList = handwerkResource.getAllManufacturers();
+        if (manufacturerList != null) {
+            for (Manufacturer m : manufacturerList.getList()) {
                 Log.d(MainActivity.class.getName(), m.toString());
             }
-        } catch (Exception e) {
+        }
+
+        ServiceList serviceList = handwerkResource.getAllServices();
+        if (serviceList != null) {
+            for (Service s : serviceList.getList()) {
+                Log.d(MainActivity.class.getName(), s.toString());
+            }
         }
     }
 
-    public static class AndroidFriendlyFeature implements Feature {
 
-        @Override
-        public boolean configure(FeatureContext context) {
-            context.register(new AbstractBinder() {
-                @Override
-                protected void configure() {
-                    addUnbindFilter(new Filter() {
-                        @Override
-                        public boolean matches(Descriptor d) {
-                            String implClass = d.getImplementation();
-                            return implClass.startsWith(
-                                    "org.glassfish.jersey.message.internal.DataSource")
-                                    || implClass.startsWith(
-                                    "org.glassfish.jersey.message.internal.RenderedImage");
-                        }
-                    });
-                }
-            });
-            return true;
-        }
-    }
 
 }
