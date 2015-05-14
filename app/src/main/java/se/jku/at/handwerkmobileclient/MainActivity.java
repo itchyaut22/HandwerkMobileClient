@@ -1,30 +1,20 @@
 package se.jku.at.handwerkmobileclient;
 
-import android.app.Activity;
+import android.app.ActionBar;
 import android.os.StrictMode;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.Button;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
-import org.glassfish.hk2.api.Descriptor;
-import org.glassfish.hk2.api.Filter;
-import org.glassfish.hk2.utilities.binding.AbstractBinder;
-import org.glassfish.jersey.client.ClientConfig;
-
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Feature;
-import javax.ws.rs.core.FeatureContext;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
 
 import se.jku.at.handwerkmobileclient.model.Manufacturer;
 import se.jku.at.handwerkmobileclient.model.ManufacturerList;
@@ -32,29 +22,69 @@ import se.jku.at.handwerkmobileclient.model.Service;
 import se.jku.at.handwerkmobileclient.model.ServiceList;
 import se.jku.at.handwerkmobileclient.rest.HandwerkResource;
 import se.jku.at.handwerkmobileclient.rest.impl.HandwerkResourceImpl;
-import se.jku.at.handwerkmobileclient.rest.impl.RestHelper;
 
 @EActivity(R.layout.activity_main)
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
     public static final String version = "v3";
 
-    @ViewById(R.id.button1)
-    Button button1;
+    private TabsPagerAdapter mAdapter;
 
-    private static String getBaseURIOnline() {
-        return "http://itchyaut22.ddns.net:8080/HandwerkService/api";
-    }
+    @ViewById(R.id.pager)
+    ViewPager viewPager;
 
-    @AfterInject
-    public void test1() {
+    @AfterViews
+    public void init() {
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
+
+        mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(mAdapter);
+        final ActionBar actionbar = getActionBar();
+
+        // Specify that tabs should be displayed in the action bar.
+        actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        // create new tabs and and set up the titles of the tabs
+        ActionBar.Tab mFindTab = actionbar.newTab().setText(
+                getString(R.string.ui_tabname_list));
+        ActionBar.Tab mChatTab = actionbar.newTab().setText(
+                getString(R.string.ui_tabname_map));
+        ActionBar.Tab mstatisticTab = actionbar.newTab().setText(
+                getString(R.string.ui_tabname_statistic));
+
+        // bind the fragments to the tabs - set up tabListeners for each tab
+        mFindTab.setTabListener(this);
+        mChatTab.setTabListener(this);
+        mstatisticTab.setTabListener(this);
+
+        // add the tabs to the action bar
+        actionbar.addTab(mFindTab);
+        actionbar.addTab(mChatTab);
+        actionbar.addTab(mstatisticTab);
+
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            @Override
+            public void onPageSelected(int position) {
+                // on changing the page
+                // make respected tab selected
+                actionbar.setSelectedNavigationItem(position);
+            }
+
+            @Override
+            public void onPageScrolled(int arg0, float arg1, int arg2) {
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int arg0) {
+            }
+        });
+
     }
 
-    @Click(R.id.button1)
     public void Button1Click() {
         final HandwerkResource handwerkResource = new HandwerkResourceImpl();
 
@@ -73,6 +103,25 @@ public class MainActivity extends Activity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
 
+    @Override
+    public void onTabSelected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
+        viewPager.setCurrentItem(tab.getPosition());
+    }
 
+    @Override
+    public void onTabUnselected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
+
+    }
+
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
+
+    }
 }

@@ -3,4 +3,12 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="action_search">Suchen</string>
+
+    <string name="ui_tabname_list">Liste</string>
+    <string name="ui_tabname_map">Karte</string>
+    <string name="ui_tabname_statistic">Statistik</string>
+    <string name="title_service_list">Services</string>
+    <string name="title_service_detail">Service Detail</string>
+
 </resources>
