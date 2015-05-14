@@ -14,7 +14,6 @@ import org.androidannotations.annotations.ViewById;
 
 import se.jku.at.handwerkmobileclient.R;
 import se.jku.at.handwerkmobileclient.activities.ServiceDetailActivity_;
-import se.jku.at.handwerkmobileclient.activities.ServiceDetailFragment;
 import se.jku.at.handwerkmobileclient.model.Service;
 import se.jku.at.handwerkmobileclient.model.ServiceAdapter;
 
