@@ -23,6 +23,11 @@
             android:label="@string/title_service_detail" >
 
         </activity>
+        <activity
+            android:name=".activities.AddManufacturerActivity_"
+            android:label="@string/title_add_manufacturer" >
+
+        </activity>
     </application>
 
 </manifest>

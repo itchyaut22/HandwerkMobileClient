@@ -15,7 +15,7 @@ import se.jku.at.handwerkmobileclient.fragments.*;
 public class TabsPagerAdapter extends FragmentPagerAdapter {
 
     // alle verfuegbaren Fragments
-    private Fragment listFragment, mapFragment, statisticFragment;
+    private Fragment listFragment, addFragment, statisticFragment;
 
     public TabsPagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
@@ -38,10 +38,10 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
                 }
                 return listFragment;
             case 1:
-                if (mapFragment == null) {
-                    mapFragment = new ListFragment_();
+                if (addFragment == null) {
+                    addFragment = new AddFragement_();
                 }
-                return mapFragment;
+                return addFragment;
             case 2:
                 if (statisticFragment == null) {
                     statisticFragment = new ListFragment_();
