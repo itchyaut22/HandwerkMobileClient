@@ -20,7 +20,7 @@ import se.jku.at.handwerkmobileclient.model.ServiceAdapter;
 /**
  * Created by Martin on 14.05.15.
  */
-@EFragment(R.layout.listfragment)
+@EFragment(R.layout.fragment_list)
 public class ListFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     @ViewById(R.id.list_view)

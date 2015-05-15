@@ -4,13 +4,13 @@
     android:layout_height="fill_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="3dp" >
+        android:paddingTop="3dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -18,13 +18,13 @@
             android:orientation="horizontal"
             android:paddingBottom="5dp"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp" >
+            android:paddingRight="10dp">
 
-                <Spinner
-        android:id="@+id/spinner1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rounded_exittext" />
+            <Spinner
+                android:id="@+id/spinner1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_exittext" />
         </LinearLayout>
 
         <LinearLayout
@@ -33,32 +33,25 @@
             android:orientation="horizontal"
             android:paddingBottom="5dp"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp" >
+            android:paddingRight="10dp">
 
             <EditText
                 android:id="@+id/inputSearch"
-                android:paddingLeft="5dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/rounded_exittext"
+                android:paddingLeft="5dp"
                 android:textColor="@android:color/holo_green_dark" />
         </LinearLayout>
 
         <View style="@style/Divider" />
     </LinearLayout>
-    
-    
-    <!-- Editext for Search -->
 
-
-
-
-  
     <!-- List View -->
     <ListView
         android:id="@+id/list_view"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
-  
+
 </LinearLayout>

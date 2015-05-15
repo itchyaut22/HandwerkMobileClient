@@ -29,16 +29,86 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="10dp" >
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="    Beschreibung"
+                android:id="@+id/textView2"
+                android:background="@android:color/holo_green_light"
+                android:padding="5dp"
+                android:layout_marginBottom="10dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/service_detail_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Preis"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:id="@+id/service_detail_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="    Kontakt"
+                android:id="@+id/tv_contact"
+                android:background="@android:color/holo_green_light"
+                android:padding="5dp"
+                android:layout_marginBottom="10dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="10dp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="5dp"
-                android:text="test1"
+                android:text="Name"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:id="@+id/textView"
+                android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:id="@+id/service_detail_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Adresse"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp" />
 
             <TextView
                 android:id="@+id/service_detail_address"
@@ -46,36 +116,53 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingLeft="5dp"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="test2"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textStyle="bold" />
+                android:layout_marginLeft="10dp" />
 
             <TextView
-                android:id="@+id/service_detail_distanceTo"
+                android:id="@+id/service_detail_country"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingLeft="5dp"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginLeft="10dp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="test3"
+                android:text="Telefon"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp" />
 
-            <LinearLayout
-                android:id="@+id/myTestPlaceholder"
+            <TextView
+                android:id="@+id/service_detail_tel"
                 android:layout_width="match_parent"
-                android:layout_height="fill_parent"
-                android:orientation="vertical"
-                android:paddingLeft="5dp" />
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="E-Mail"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold"
+                android:id="@+id/textView4"
+                android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:id="@+id/service_detail_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginLeft="10dp" />
+
         </LinearLayout>
     </ScrollView>
 
