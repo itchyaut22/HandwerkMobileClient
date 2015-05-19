@@ -14,3 +14,6 @@ notifications:
   email: false
 
 sudo: false
+
+script:
+ - ./gradlew assembleDebug
