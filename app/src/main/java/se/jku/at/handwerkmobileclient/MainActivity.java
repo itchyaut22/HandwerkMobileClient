@@ -52,18 +52,14 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                 getString(R.string.ui_tabname_list));
         ActionBar.Tab mChatTab = actionbar.newTab().setText(
                 getString(R.string.ui_tabname_map));
-        ActionBar.Tab mstatisticTab = actionbar.newTab().setText(
-                getString(R.string.ui_tabname_statistic));
 
         // bind the fragments to the tabs - set up tabListeners for each tab
         mFindTab.setTabListener(this);
         mChatTab.setTabListener(this);
-        mstatisticTab.setTabListener(this);
 
         // add the tabs to the action bar
         actionbar.addTab(mFindTab);
         actionbar.addTab(mChatTab);
-        actionbar.addTab(mstatisticTab);
 
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 

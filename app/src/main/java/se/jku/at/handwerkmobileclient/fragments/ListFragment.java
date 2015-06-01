@@ -1,6 +1,7 @@
 package se.jku.at.handwerkmobileclient.fragments;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="top"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearLayout2"
+        android:layout_below="@+id/linearLayout1" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <Spinner
+                android:id="@+id/activity_insert_serv_manuf_spinner"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <se.jku.at.handwerkmobileclient.views.InsertItemView_
+                app:titleText="Headline"
+                android:id="@+id/activity_insert_serv_headline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:inputType="text"
+                app:enabled="true" >
+            </se.jku.at.handwerkmobileclient.views.InsertItemView_>
+
+            <se.jku.at.handwerkmobileclient.views.InsertItemView_
+                app:titleText="Detail Info"
+                android:id="@+id/activity_insert_serv_detailInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" >
+            </se.jku.at.handwerkmobileclient.views.InsertItemView_>
+
+            // Spinner Category
+            <Spinner
+                android:id="@+id/activity_insert_serv_category_spinner"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <se.jku.at.handwerkmobileclient.views.InsertItemView_
+                app:titleText="Preis"
+                android:id="@+id/activity_insert_serv_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" >
+            </se.jku.at.handwerkmobileclient.views.InsertItemView_>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Service hinzufügen"
+            android:id="@+id/activity_insert_serv_bAdd"
+            android:layout_gravity="center_horizontal"
+            android:background="@android:color/holo_green_light"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="Service hinzufügen"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <View style="@style/Divider" />
+    </LinearLayout>
+
+</RelativeLayout>

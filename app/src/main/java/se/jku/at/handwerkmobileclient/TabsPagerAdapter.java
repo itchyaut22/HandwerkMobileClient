@@ -27,7 +27,6 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
      * @param index. Gibt an, zu welchem Fragment gewechselt wird.
      * 0 ... List Fragment
      * 1 ... Map Fragment
-     * 2 ... Statistik Fragment
      */
     public Fragment getItem(int index) {
 
@@ -42,11 +41,6 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
                     addFragment = new AddFragement_();
                 }
                 return addFragment;
-            case 2:
-                if (statisticFragment == null) {
-                    statisticFragment = new ListFragment_();
-                }
-                return statisticFragment;
         }
 
         return null;
@@ -55,7 +49,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // get item count - equal to number of tabs
-        return 3;
+        return 2;
     }
 
 }

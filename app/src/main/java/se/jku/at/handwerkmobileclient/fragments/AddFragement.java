@@ -7,6 +7,8 @@ import org.androidannotations.annotations.EFragment;
 
 import se.jku.at.handwerkmobileclient.R;
 import se.jku.at.handwerkmobileclient.activities.AddManufacturerActivity_;
+import se.jku.at.handwerkmobileclient.activities.AddServiceActivity;
+import se.jku.at.handwerkmobileclient.activities.AddServiceActivity_;
 
 /**
  * Created by Martin on 15.05.15.
@@ -22,7 +24,8 @@ public class AddFragement extends Fragment {
 
     @Click(R.id.fragment_insert_service)
     void buttonAddService_Click() {
-
+        AddServiceActivity_.intent(getActivity()).start();
+        
     }
 
 }
