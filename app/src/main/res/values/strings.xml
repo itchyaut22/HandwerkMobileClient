@@ -10,5 +10,11 @@
     <string name="title_service_list">Services</string>
     <string name="title_service_detail">Service Detail</string>
     <string name="title_add_manufacturer">Handwerker hinzufügen</string>
+    <string name="hint_text">klicken um zu filtern</string>
+    <string name="sort_prompt">Sortierstrategie auswählen</string>
+    <string-array name="sort_options">
+        <item>Sortieren nach: Name</item>
+        <item>Sortieren nach: Preis</item>
+    </string-array>
 
 </resources>
