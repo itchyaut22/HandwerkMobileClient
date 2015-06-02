@@ -184,7 +184,7 @@ public class HandwerkResourceImpl implements HandwerkResource {
             WebTarget service = RestHelper.getWebTarget();
             service = service.path("services");
             service = service.path(id + "");
-            Invocation.Builder builder = service.request().accept(MediaType.TEXT_PLAIN);
+            Invocation.Builder builder = service.request().header("Content-Type","text/plain");
             Response response = builder.delete();
             String json = response.readEntity(String.class);
             return json.equals("true");

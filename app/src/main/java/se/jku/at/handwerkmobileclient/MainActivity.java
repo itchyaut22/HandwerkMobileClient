@@ -16,6 +16,7 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+import se.jku.at.handwerkmobileclient.fragments.ListFragment_;
 import se.jku.at.handwerkmobileclient.model.Manufacturer;
 import se.jku.at.handwerkmobileclient.model.ManufacturerList;
 import se.jku.at.handwerkmobileclient.model.Service;
@@ -81,24 +82,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
     }
 
-    public void Button1Click() {
-        final HandwerkResource handwerkResource = new HandwerkResourceImpl();
-
-        ManufacturerList manufacturerList = handwerkResource.getAllManufacturers();
-        if (manufacturerList != null) {
-            for (Manufacturer m : manufacturerList.getList()) {
-                Log.d(MainActivity.class.getName(), m.toString());
-            }
-        }
-
-        ServiceList serviceList = handwerkResource.getAllServices();
-        if (serviceList != null) {
-            for (Service s : serviceList.getList()) {
-                Log.d(MainActivity.class.getName(), s.toString());
-            }
-        }
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -118,6 +101,5 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
     @Override
     public void onTabReselected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
-
     }
 }

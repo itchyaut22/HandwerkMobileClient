@@ -15,7 +15,7 @@ import se.jku.at.handwerkmobileclient.fragments.*;
 public class TabsPagerAdapter extends FragmentPagerAdapter {
 
     // alle verfuegbaren Fragments
-    private Fragment listFragment, addFragment, statisticFragment;
+    private Fragment listFragment, addFragment;
 
     public TabsPagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
@@ -26,7 +26,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
      * Methode zum Wechseln zwischen den einzelnen Fragmenten.
      * @param index. Gibt an, zu welchem Fragment gewechselt wird.
      * 0 ... List Fragment
-     * 1 ... Map Fragment
+     * 1 ... Add Fragment
      */
     public Fragment getItem(int index) {
 
