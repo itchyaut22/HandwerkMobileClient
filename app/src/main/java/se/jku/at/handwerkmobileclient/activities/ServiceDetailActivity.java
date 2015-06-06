@@ -1,8 +1,5 @@
 package se.jku.at.handwerkmobileclient.activities;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.support.v4.app.FragmentActivity;
 import android.widget.TextView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -18,7 +15,7 @@ import se.jku.at.handwerkmobileclient.rest.HandwerkResource;
 import se.jku.at.handwerkmobileclient.rest.impl.HandwerkResourceImpl;
 
 @EActivity(R.layout.activity_service_detail)
-public class ServiceDetailActivity extends FragmentActivity {
+public class ServiceDetailActivity extends BaseActivity {
 
     @Extra("idExtra")
     int id;
@@ -79,49 +76,4 @@ public class ServiceDetailActivity extends FragmentActivity {
             showAlertDialog("Delete", "Erfolgreich gelöscht!");
         }
     }
-
-
-
-    /**
-     * Dient dazu einen Alert Dialog anzuzeigen
-     *
-     * @param ueberschrift, �berschrift des Dialogs
-     * @param text,         anzuzeigender Text des Dialogfensters
-     */
-    void showAlertDialog(String ueberschrift, String text) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
-        // set title
-        alertDialogBuilder.setTitle(ueberschrift);
-
-        // set dialog message
-        alertDialogBuilder.setMessage(text)
-                .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // if this button is clicked, close
-                        // the dialog box
-                        dialog.cancel();
-                    }
-                })
-       /*
-        * .setNegativeButton("No",new DialogInterface.OnClickListener() {
-        * public void onClick(DialogInterface dialog,int id) { // if this
-        * button is clicked, just close // the dialog box and do nothing
-        * dialog.cancel(); } })
-        */;
-
-        // create alert dialog
-        AlertDialog alertDialog = alertDialogBuilder.create();
-
-        // show it
-        alertDialog.show();
-        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                finish();
-            }
-        });
-    }
-
 }

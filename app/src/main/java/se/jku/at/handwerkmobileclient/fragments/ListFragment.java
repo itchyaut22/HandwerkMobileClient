@@ -51,25 +51,22 @@ public class ListFragment extends Fragment implements AdapterView.OnItemSelected
         spinner.setSelection(0);
     }
 
+    /**
+     * Listen for filter input
+     * @param text
+     * @param before
+     * @param start
+     * @param count
+     */
     @TextChange(R.id.inputSearch)
     protected void onTextChangesOnInputSearch(CharSequence text, int before, int start, int count) {
         adapter.getFilter().filter(text);
     }
 
-    private void refreshContent() {
-        adapter.refresh();
-        swipeRefreshLayout.setRefreshing(false);
-        stationList.smoothScrollToPosition(0);
-    }
-
     @ItemClick(R.id.list_view)
     protected void itemClicked(Service service) {
-        // show detail view
-        //Toast.makeText(getActivity(), service.getHeadline(), Toast.LENGTH_SHORT).show();
-
         ServiceDetailActivity_.intent(getActivity()).id(service.getId()).start();
     }
-
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -81,7 +78,7 @@ public class ListFragment extends Fragment implements AdapterView.OnItemSelected
 
     }
 
-    public void setComparatorForAdapter(int id) {
+    private void setComparatorForAdapter(int id) {
         switch(id) {
             case 0:
                 adapter.setComparator(ServiceAdapter.serviceNameComparator);
@@ -90,5 +87,11 @@ public class ListFragment extends Fragment implements AdapterView.OnItemSelected
                 adapter.setComparator(ServiceAdapter.servicePriceComparator);
                 break;
         }
+    }
+
+    private void refreshContent() {
+        adapter.refresh();
+        swipeRefreshLayout.setRefreshing(false);
+        stationList.smoothScrollToPosition(0);
     }
 }

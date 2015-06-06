@@ -1,14 +1,11 @@
 package se.jku.at.handwerkmobileclient.activities;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.support.v4.app.FragmentActivity;
-
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+import se.jku.at.handwerkmobileclient.BuildConfig;
 import se.jku.at.handwerkmobileclient.R;
 import se.jku.at.handwerkmobileclient.model.Manufacturer;
 import se.jku.at.handwerkmobileclient.rest.HandwerkResource;
@@ -19,7 +16,7 @@ import se.jku.at.handwerkmobileclient.views.InsertItemView;
  * Created by Martin on 15.05.15.
  */
 @EActivity(R.layout.activity_insert_manufacturer)
-public class AddManufacturerActivity extends FragmentActivity {
+public class AddManufacturerActivity extends BaseActivity {
 
     @ViewById(R.id.activity_insert_manuf_name)
     protected InsertItemView tv_name;
@@ -48,13 +45,14 @@ public class AddManufacturerActivity extends FragmentActivity {
 
     @AfterViews
     void init() {
-        tv_plz.setValue("0");
-
-        tv_name.setValue("Hugo");
-        tv_plz.setValue("4040");
-        tv_city.setValue("Linz");
-        tv_country.setValue("Austria");
-        tv_email.setValue("test@test.at");
+        if (BuildConfig.DEBUG) {
+            tv_plz.setValue("0");
+            tv_name.setValue("Hugo");
+            tv_plz.setValue("4040");
+            tv_city.setValue("Linz");
+            tv_country.setValue("Austria");
+            tv_email.setValue("test@test.at");
+        }
     }
 
     @Click(R.id.activity_insert_manuf_bAdd)
@@ -99,50 +97,10 @@ public class AddManufacturerActivity extends FragmentActivity {
 
         final HandwerkResource res = new HandwerkResourceImpl();
         final Manufacturer manufacturer = new Manufacturer(name, city, address, plz, country, tel, email, info);
-        if (res.addManufacturer(manufacturer)) {
-            finish();
+        if (res.addManufacturer(manufacturer)) { // REST Call
+            finish(); // Activity schließen
         } else {
             showAlertDialog("Fehler", "Einfügen nicht erfolgreich!");
         }
-
-
     }
-
-
-    /**
-     * Dient dazu einen Alert Dialog anzuzeigen
-     *
-     * @param ueberschrift, �berschrift des Dialogs
-     * @param text,         anzuzeigender Text des Dialogfensters
-     */
-    void showAlertDialog(String ueberschrift, String text) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
-        // set title
-        alertDialogBuilder.setTitle(ueberschrift);
-
-        // set dialog message
-        alertDialogBuilder.setMessage(text)
-                .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // if this button is clicked, close
-                        // the dialog box
-                        dialog.cancel();
-                    }
-                })
-       /*
-        * .setNegativeButton("No",new DialogInterface.OnClickListener() {
-        * public void onClick(DialogInterface dialog,int id) { // if this
-        * button is clicked, just close // the dialog box and do nothing
-        * dialog.cancel(); } })
-        */;
-
-        // create alert dialog
-        AlertDialog alertDialog = alertDialogBuilder.create();
-
-        // show it
-        alertDialog.show();
-    }
-
 }

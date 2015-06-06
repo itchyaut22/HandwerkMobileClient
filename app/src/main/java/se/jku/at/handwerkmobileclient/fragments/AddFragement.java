@@ -18,7 +18,6 @@ public class AddFragement extends Fragment {
 
     @Click(R.id.fragment_insert_manufacturer)
     void buttonAddManufacturer_Click() {
-
         AddManufacturerActivity_.intent(getActivity()).start();
     }
 
@@ -27,5 +26,4 @@ public class AddFragement extends Fragment {
         AddServiceActivity_.intent(getActivity()).start();
         
     }
-
 }

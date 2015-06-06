@@ -27,24 +27,17 @@ public class ListItemView extends LinearLayout {
     @ViewById(R.id.item_price)
     TextView tv_price;
 
-    private BaseAdapter adapter;
-
     public ListItemView(Context context) {
         super(context);
     }
 
     public ListItemView(Context context, BaseAdapter adapter) {
         this(context);
-        this.adapter = adapter;
     }
 
     public void bind(Service item) {
         tv_headline.setText(item.getHeadline());
         tv_details.setText(item.getDetailInfo());
         tv_price.setText(String.valueOf(item.getPrice()) + " €");
-    }
-
-    public TextView getTv_headline() {
-        return tv_headline;
     }
 }

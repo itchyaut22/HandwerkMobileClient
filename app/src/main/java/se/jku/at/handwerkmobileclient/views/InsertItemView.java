@@ -19,9 +19,7 @@ import se.jku.at.handwerkmobileclient.R;
  *
  * Diese Klasse ist ein LinearLayout und wird mit EViewGroup annotiert.
  * Es beeinhaltet eine TextView als Headline, und ein EditText als Eingabefeld.
- * Verwendet wird diese Klasse fuer das einfuegen eines neuen Handwerkers.
- *
- * @author Martin
+ * Verwendet wird diese Klasse fuer das Einfuegen eines neuen Handwerkers/Service.
  *
  */
 @EViewGroup(R.layout.insert_item)
@@ -112,29 +110,6 @@ public class InsertItemView extends LinearLayout {
      */
     private InsertItemView setHintText(String s) {
         stat_ins_value.setHint(s);
-        return this;
-    }
-
-    public EditText getStat_ins_value() {
-        return stat_ins_value;
-    }
-
-    public void setStat_ins_value(EditText stat_ins_value) {
-        this.stat_ins_value = stat_ins_value;
-    }
-
-    /**
-     * Error Text fuer EditText setzen
-     * @param s Text
-     * @return
-     */
-    public InsertItemView setErrorText(String s) {
-        stat_ins_value.setError(s);
-        return this;
-    }
-
-    public InsertItemView deleteErrorText(){
-        stat_ins_value.setError(null);
         return this;
     }
 }

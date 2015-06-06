@@ -11,6 +11,7 @@
     <string name="title_service_detail">Service Detail</string>
     <string name="delete_button">Löschen</string>
     <string name="title_add_manufacturer">Handwerker hinzufügen</string>
+    <string name="title_add_service">Service hinzufügen</string>
     <string name="hint_text">klicken um zu filtern</string>
     <string name="sort_prompt">Sortierstrategie auswählen</string>
     <string-array name="sort_options">
