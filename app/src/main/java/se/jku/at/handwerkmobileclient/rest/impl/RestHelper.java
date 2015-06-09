@@ -15,11 +15,11 @@ import javax.ws.rs.core.FeatureContext;
  */
 public class RestHelper {
 
-    private static boolean DEBUG_MODE = false;
+    private static boolean DEBUG_MODE = true;
 
-    private static final String API_VERSION = "v3";
+    private static final String API_VERSION = "v4";
 
-    private static final String BASEURL_OFFLINE = "http://localhost:8080/HandwerkService/api/" + API_VERSION;
+    private static final String BASEURL_OFFLINE = "http://192.168.0.20:8080/HandwerkService/api/" + API_VERSION;
     private static final String BASEURL_ONLINE = "http://itchyaut22.ddns.net:8080/HandwerkService/api/" + API_VERSION;
 
     private static Client client;

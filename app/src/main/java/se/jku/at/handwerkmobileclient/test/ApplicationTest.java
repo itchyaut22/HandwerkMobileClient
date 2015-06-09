@@ -22,7 +22,7 @@ public class ApplicationTest extends InstrumentationTestCase {
         }
     }
 
-    public void test1() {
+    public void test1() throws Exception {
         final HandwerkResource res = new HandwerkResourceImpl();
         Assert.assertNotNull(res);
 

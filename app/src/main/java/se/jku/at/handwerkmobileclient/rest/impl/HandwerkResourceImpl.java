@@ -15,12 +15,28 @@ import se.jku.at.handwerkmobileclient.model.Service;
 import se.jku.at.handwerkmobileclient.model.ServiceCategory;
 import se.jku.at.handwerkmobileclient.model.ServiceCategoryList;
 import se.jku.at.handwerkmobileclient.model.ServiceList;
+import se.jku.at.handwerkmobileclient.model.User;
 import se.jku.at.handwerkmobileclient.rest.HandwerkResource;
 
 /**
  * Created by Martin on 12.05.15.
  */
 public class HandwerkResourceImpl implements HandwerkResource {
+
+    private String accessToken;
+    private static final String AUTHORIZATION = "Authorization";
+    private static final String BEARER = "Bearer ";
+
+    public HandwerkResourceImpl() throws Exception {
+        if (User.instance == null)
+            throw new Exception("User == null!");
+
+        this.accessToken = User.instance.getToken();
+    }
+
+    private Invocation.Builder addAuthHeader(Invocation.Builder builder) {
+        return builder.header(AUTHORIZATION, BEARER + accessToken);
+    }
 
     @Override
     public ManufacturerList getAllManufacturers() {
@@ -29,14 +45,14 @@ public class HandwerkResourceImpl implements HandwerkResource {
             WebTarget service = RestHelper.getWebTarget();
             service = service.path("manufacturers");
             Invocation.Builder builder = service.request().accept(MediaType.APPLICATION_JSON);
-            Response response = builder.get();
+            Response response = addAuthHeader(builder).get();
             String json = response.readEntity(String.class);
             ObjectMapper mapper = new ObjectMapper();
             list = mapper.readValue(json, ManufacturerList.class);
             return list;
         } catch (Exception e) {
             //e.printStackTrace();
-            return null;
+            return new ManufacturerList();
         }
     }
 
@@ -47,7 +63,7 @@ public class HandwerkResourceImpl implements HandwerkResource {
             WebTarget service = RestHelper.getWebTarget();
             service = service.path("manufacturers").path(id + "");
             Invocation.Builder builder = service.request().accept(MediaType.APPLICATION_JSON);
-            Response response = builder.get();
+            Response response = addAuthHeader(builder).get();
             String json = response.readEntity(String.class);
             ObjectMapper mapper = new ObjectMapper();
             worker = mapper.readValue(json, Manufacturer.class);
@@ -72,7 +88,7 @@ public class HandwerkResourceImpl implements HandwerkResource {
             service = service.queryParam("email", email);
 
             Invocation.Builder builder = service.request().accept(MediaType.APPLICATION_JSON);
-            Response response = builder.get();
+            Response response = addAuthHeader(builder).get();
             String json = response.readEntity(String.class);
             ObjectMapper mapper = new ObjectMapper();
             list = mapper.readValue(json, ManufacturerList.class);
@@ -90,7 +106,7 @@ public class HandwerkResourceImpl implements HandwerkResource {
             service = service.path("manufacturers");
             service = service.path(id + "");
             Invocation.Builder builder = service.request().accept(MediaType.TEXT_PLAIN);
-            Response response = builder.delete();
+            Response response = addAuthHeader(builder).delete();
             String json = response.readEntity(String.class);
             return json.equals("true");
         } catch (Exception e) {
@@ -108,7 +124,7 @@ public class HandwerkResourceImpl implements HandwerkResource {
             String inputjson = mapper.writeValueAsString(worker);
             Entity<String> entity = Entity.entity(inputjson, MediaType.APPLICATION_JSON);
             Invocation.Builder builder = service.request().accept(MediaType.TEXT_PLAIN);
-            Response response = builder.put(entity);
+            Response response = addAuthHeader(builder).put(entity);
             String json = response.readEntity(String.class);
             return json.equals("true");
         } catch (Exception e) {
@@ -124,14 +140,14 @@ public class HandwerkResourceImpl implements HandwerkResource {
             WebTarget service = RestHelper.getWebTarget();
             service = service.path("services");
             Invocation.Builder builder = service.request().accept(MediaType.APPLICATION_JSON);
-            Response response = builder.get();
+            Response response = addAuthHeader(builder).get();
             String json = response.readEntity(String.class);
             ObjectMapper mapper = new ObjectMapper();
             list = mapper.readValue(json, ServiceList.class);
             return list;
         } catch (Exception e) {
             //e.printStackTrace();
-            return null;
+            return new ServiceList();
         }
     }
 
@@ -142,7 +158,7 @@ public class HandwerkResourceImpl implements HandwerkResource {
             WebTarget service = RestHelper.getWebTarget();
             service = service.path("services").path(id + "");
             Invocation.Builder builder = service.request().accept(MediaType.APPLICATION_JSON);
-            Response response = builder.get();
+            Response response = addAuthHeader(builder).get();
             String json = response.readEntity(String.class);
             ObjectMapper mapper = new ObjectMapper();
             work = mapper.readValue(json, Service.class);
@@ -167,7 +183,7 @@ public class HandwerkResourceImpl implements HandwerkResource {
             service = service.queryParam("city", city);
             service = service.queryParam("plz", plz);
             Invocation.Builder builder = service.request().accept(MediaType.APPLICATION_JSON);
-            Response response = builder.get();
+            Response response = addAuthHeader(builder).get();
             String json = response.readEntity(String.class);
             ObjectMapper mapper = new ObjectMapper();
             list = mapper.readValue(json, ServiceList.class);
@@ -185,7 +201,7 @@ public class HandwerkResourceImpl implements HandwerkResource {
             service = service.path("services");
             service = service.path(id + "");
             Invocation.Builder builder = service.request().header("Content-Type","text/plain");
-            Response response = builder.delete();
+            Response response = addAuthHeader(builder).delete();
             String json = response.readEntity(String.class);
             return json.equals("true");
         } catch (Exception e) {
@@ -203,7 +219,7 @@ public class HandwerkResourceImpl implements HandwerkResource {
             String inputjson = mapper.writeValueAsString(service);
             Entity<String> entity = Entity.entity(inputjson, MediaType.APPLICATION_JSON);
             Invocation.Builder builder = target.request().accept(MediaType.TEXT_PLAIN);
-            Response response = builder.put(entity);
+            Response response = addAuthHeader(builder).put(entity);
             String json = response.readEntity(String.class);
             return json.equals("true");
         } catch (Exception e) {
@@ -219,7 +235,7 @@ public class HandwerkResourceImpl implements HandwerkResource {
             WebTarget service = RestHelper.getWebTarget();
             service = service.path("services/categories");
             Invocation.Builder builder = service.request().accept(MediaType.APPLICATION_JSON);
-            Response response = builder.get();
+            Response response = addAuthHeader(builder).get();
             String json = response.readEntity(String.class);
             ObjectMapper mapper = new ObjectMapper();
             list = mapper.readValue(json, ServiceCategoryList.class);

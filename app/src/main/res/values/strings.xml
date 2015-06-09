@@ -18,5 +18,6 @@
         <item>Sortieren nach: Name</item>
         <item>Sortieren nach: Preis</item>
     </string-array>
+    <string name="title_activity_login">Sign in</string>
 
 </resources>

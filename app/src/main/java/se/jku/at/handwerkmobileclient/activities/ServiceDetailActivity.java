@@ -49,31 +49,38 @@ public class ServiceDetailActivity extends BaseActivity {
 
     @AfterViews
     void init() {
-        service = new HandwerkResourceImpl().getService(id);
+        try {
+            service = new HandwerkResourceImpl().getService(id);
+            if (service != null) {
+                manufacturer = new HandwerkResourceImpl().getManufacturer(service.getSupplierid());
+                headline.setText(service.getHeadline());
+                details.setText(service.getDetailInfo());
+                price.setText(service.getPrice() + " €");
+            }
 
-        if (service != null) {
-            manufacturer = new HandwerkResourceImpl().getManufacturer(service.getSupplierid());
-            headline.setText(service.getHeadline());
-            details.setText(service.getDetailInfo());
-            price.setText(service.getPrice() + " €");
+            if (service != null && manufacturer != null) {
+                name.setText(manufacturer.getName());
+                address.setText(manufacturer.getAddress() + ", " + manufacturer.getPlz() + " " + manufacturer.getCity());
+                country.setText(manufacturer.getCountry());
+                tel.setText(manufacturer.getTel());
+                email.setText(manufacturer.getEmail());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        if (service != null && manufacturer != null) {
-            name.setText(manufacturer.getName());
-            address.setText(manufacturer.getAddress() + ", " + manufacturer.getPlz() + " " + manufacturer.getCity());
-            country.setText(manufacturer.getCountry());
-            tel.setText(manufacturer.getTel());
-            email.setText(manufacturer.getEmail());
-        }
-
     }
 
     @Click(R.id.deleteButton)
-    void deleteService(){
-        final HandwerkResource res = new HandwerkResourceImpl();
-        boolean stat = res.deleteService(id);
-        if(stat) {
-            showAlertDialog("Delete", "Erfolgreich gelöscht!");
+    void deleteService() {
+        final HandwerkResource res;
+        try {
+            res = new HandwerkResourceImpl();
+            boolean stat = res.deleteService(id);
+            if(stat) {
+                showAlertDialog("Delete", "Erfolgreich gelöscht!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

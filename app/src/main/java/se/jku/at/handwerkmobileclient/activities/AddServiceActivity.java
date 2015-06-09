@@ -9,6 +9,7 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import se.jku.at.handwerkmobileclient.BuildConfig;
@@ -16,6 +17,7 @@ import se.jku.at.handwerkmobileclient.R;
 import se.jku.at.handwerkmobileclient.model.Manufacturer;
 import se.jku.at.handwerkmobileclient.model.Service;
 import se.jku.at.handwerkmobileclient.model.ServiceCategory;
+import se.jku.at.handwerkmobileclient.model.User;
 import se.jku.at.handwerkmobileclient.rest.HandwerkResource;
 import se.jku.at.handwerkmobileclient.rest.impl.HandwerkResourceImpl;
 import se.jku.at.handwerkmobileclient.views.InsertItemView;
@@ -37,32 +39,45 @@ public class AddServiceActivity extends BaseActivity {
     @ViewById(R.id.activity_insert_serv_price)
     protected InsertItemView price;
 
+    @ViewById(R.id.activity_insert_serv_manuf_spinner)
+    protected Spinner manuf_spinner;
+
+    @ViewById(R.id.activity_insert_serv_category_spinner)
+    protected Spinner cat_spinner;
+
+
     @AfterViews
     void init() {
-        final HandwerkResource res = new HandwerkResourceImpl();
-        //Get all manufacturers
-        final List<Manufacturer> manus = res.getAllManufacturers().getList();
-        //Get all categories
-        final List<ServiceCategory> categories = res.getServiceCategories().getList();
 
-        // Set Manufacturer Spinner
-        Spinner spinnerMan = (Spinner) findViewById(R.id.activity_insert_serv_manuf_spinner);
-        ArrayAdapter<Manufacturer> manAdapter = new ArrayAdapter<Manufacturer>(this,
-                android.R.layout.simple_spinner_item, manus);
-        manAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerMan.setAdapter(manAdapter);
+        try {
+            final HandwerkResource res = new HandwerkResourceImpl();
+            //Get all manufacturers
+            final List<Manufacturer> manus = /*res.getAllManufacturers().getList();*/ new ArrayList<>();
+            manus.add(User.instance.getManufacturer());
+            //Get all categories
+            final List<ServiceCategory> categories = res.getServiceCategories().getList();
 
-        // Set Category Spinner
-        Spinner spinnerCat = (Spinner) findViewById(R.id.activity_insert_serv_category_spinner);
-        ArrayAdapter<ServiceCategory> catAdapter = new ArrayAdapter<ServiceCategory>(this,
-                android.R.layout.simple_spinner_item, categories);
-        catAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCat.setAdapter(catAdapter);
 
-        if (BuildConfig.DEBUG) {
-            headline.setValue("HEADLINE");
-            detailInfo.setValue("Detail-Information about service!");
-            price.setValue("0");
+            // Set Manufacturer Spinner
+            ArrayAdapter<Manufacturer> manAdapter = new ArrayAdapter<Manufacturer>(this,
+                    android.R.layout.simple_spinner_item, manus);
+            manAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            manuf_spinner.setAdapter(manAdapter);
+
+            // Set Category Spinner
+            ArrayAdapter<ServiceCategory> catAdapter = new ArrayAdapter<ServiceCategory>(this,
+                    android.R.layout.simple_spinner_item, categories);
+            catAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            cat_spinner.setAdapter(catAdapter);
+
+            if (BuildConfig.DEBUG) {
+                headline.setValue("HEADLINE");
+                detailInfo.setValue("Detail-Information about service!");
+                price.setValue("0");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -88,21 +103,24 @@ public class AddServiceActivity extends BaseActivity {
             return;
         }
 
-        Manufacturer man = (Manufacturer) ((Spinner) findViewById(R.id.activity_insert_serv_manuf_spinner)).getSelectedItem();
+        Manufacturer man = User.instance.getManufacturer();
 
-        ServiceCategory cat = (ServiceCategory) ((Spinner) findViewById(R.id.activity_insert_serv_category_spinner)).getSelectedItem();
+        ServiceCategory cat = (ServiceCategory) cat_spinner.getSelectedItem();
 
         Double priceDouble = Double.parseDouble(priceString);
 
-        final HandwerkResource res = new HandwerkResourceImpl();
+        try {
+            final HandwerkResource res = new HandwerkResourceImpl();
+            final Service serv = new Service(cat,headl,detail,man.getId(),priceDouble);
 
-        final Service serv = new Service(cat,headl,detail,man.getId(),priceDouble);
-
-        if (res.addService(serv)) {
-            finish();
-        } else {
-            showAlertDialog("Fehler", "Einfügen nicht erfolgreich!");
+            if (res.addService(serv)) {
+                finish();
+            } else {
+                showAlertDialog("Fehler", "Einfügen nicht erfolgreich!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlertDialog("Fehler", e.getMessage());
         }
-
     }
 }

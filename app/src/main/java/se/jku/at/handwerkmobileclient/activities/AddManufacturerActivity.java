@@ -95,12 +95,18 @@ public class AddManufacturerActivity extends BaseActivity {
         }
 
 
-        final HandwerkResource res = new HandwerkResourceImpl();
-        final Manufacturer manufacturer = new Manufacturer(name, city, address, plz, country, tel, email, info);
-        if (res.addManufacturer(manufacturer)) { // REST Call
-            finish(); // Activity schließen
-        } else {
-            showAlertDialog("Fehler", "Einfügen nicht erfolgreich!");
+
+        try {
+            final HandwerkResource res = new HandwerkResourceImpl();
+            final Manufacturer manufacturer = new Manufacturer(name, city, address, plz, country, tel, email, info);
+
+            if (res.addManufacturer(manufacturer)) { // REST Call
+                finish(); // Activity schließen
+            } else {
+                showAlertDialog("Fehler", "Einfügen nicht erfolgreich!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

@@ -42,7 +42,11 @@ public class ServiceAdapter extends BaseAdapter implements Filterable {
 
     private void getData() {
 
-        services = new HandwerkResourceImpl().getAllServices().getList();
+        try {
+            services = new HandwerkResourceImpl().getAllServices().getList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         services_orig = new ArrayList<>(services);
         Collections.sort(services, comparator);
     }
