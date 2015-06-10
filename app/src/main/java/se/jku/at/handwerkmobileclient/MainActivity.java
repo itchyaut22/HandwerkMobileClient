@@ -8,7 +8,9 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
@@ -33,6 +35,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
     @ViewById(R.id.pager)
     ViewPager viewPager;
+
+    @ViewById(R.id.navList)
+    ListView mDrawerList;
+
+    private ArrayAdapter<String> mAdapter2;
 
     @AfterViews
     public void init() {
@@ -80,12 +87,14 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             }
         });
 
+        String[] osArray = { "Android", "iOS", "Windows", "OS X", "Linux" };
+        mAdapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
+        mDrawerList.setAdapter(mAdapter2);
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
         return true;
     }
 

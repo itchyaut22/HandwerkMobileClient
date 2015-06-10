@@ -1,5 +1,6 @@
 package se.jku.at.handwerkmobileclient;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
@@ -54,6 +55,8 @@ public class LoginActivity extends BaseActivity {
 
     @ViewById(R.id.login_text_username)
     EditText username;
+
+    ProgressDialog mProgressDialog;
 
     @AfterViews
     void init() {
@@ -125,7 +128,18 @@ public class LoginActivity extends BaseActivity {
         }
 
         @Override
+        protected void onPreExecute()
+        {
+            mProgressDialog = new ProgressDialog(LoginActivity.this);
+            mProgressDialog.show();
+            mProgressDialog.setMessage("Please Wait...");
+            mProgressDialog.setCancelable(false);
+            super.onPreExecute();
+        }
+
+        @Override
         protected void onPostExecute(Boolean aBoolean) {
+            mProgressDialog.dismiss();
             super.onPostExecute(aBoolean);
 
             if (aBoolean) {
@@ -158,7 +172,8 @@ public class LoginActivity extends BaseActivity {
 
                         accessToken = oauthResponse.getAccessToken();
                         User.getInstance(username).setPass(password).setToken(accessToken);
-                        for (Manufacturer m : new HandwerkResourceImpl().getAllManufacturers().getList()) {
+                        List<Manufacturer> list = new HandwerkResourceImpl().getAllManufacturers().getList();
+                        for (Manufacturer m : list) {
                             if (m.getName().equals(username) && User.instance != null) {
                                 User.instance.setManufacturer(m);
                                 break;
@@ -190,5 +205,6 @@ public class LoginActivity extends BaseActivity {
 
     private void startMainActivity() {
         MainActivity_.intent(this).start();
+        finish();
     }
 }

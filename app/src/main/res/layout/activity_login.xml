@@ -16,7 +16,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/login_text_username"
             android:layout_weight="1"
-            android:hint="username" />
+            android:hint="username"
+            android:maxLines="1"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="20dp"/>
 
         <EditText
             android:layout_width="match_parent"
@@ -24,13 +27,41 @@
             android:inputType="textPassword"
             android:id="@+id/login_text_password"
             android:layout_weight="1"
-            android:hint="password" />
+            android:hint="password"
+            android:maxLines="1"
+            android:layout_marginBottom="20dp"/>
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="login"
-            android:id="@+id/login_button_login" />
+            android:id="@+id/login_button_login"
+            android:background="@android:color/holo_green_dark"
+            android:layout_margin="20dp"
+            android:textColor="@android:color/white"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="get a manufacturer"
+            android:id="@+id/login_button_register"
+            android:background="@android:color/darker_gray"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="0dp"
+            android:textColor="@android:color/white"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="continue without login"
+            android:id="@+id/login_button_continue"
+            android:background="@android:color/darker_gray"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="0dp"
+            android:textColor="@android:color/white"/>
 
 
     </LinearLayout>
