@@ -26,6 +26,10 @@
             android:label="@string/title_add_service" >
         </activity>
         <activity
+            android:name=".RegisterActivity_"
+            android:label="@string/title_activity_register" >
+        </activity>
+        <activity
             android:name=".LoginActivity_"
             android:label="@string/title_activity_login" >
             <intent-filter>
@@ -49,6 +53,7 @@
 
 
         </activity>
+
     </application>
 
 </manifest>

@@ -14,6 +14,7 @@ public class User {
 
     private String name, pass, token;
     private Manufacturer manufacturer;
+    private UserCategory category;
 
     private User(String name) {
         this(name, null);
@@ -22,6 +23,7 @@ public class User {
     private User(String name, String password) {
         this.name = name;
         this.pass = password;
+        this.category = UserCategory.GUEST;
     }
 
     public void logout() {}
@@ -55,6 +57,13 @@ public class User {
 
     public User setManufacturer(Manufacturer manufacturer) {
         this.manufacturer = manufacturer;
+        if (manufacturer != null)
+            this.category = manufacturer.getUserCategory();
+
         return this;
+    }
+
+    public UserCategory getCategory() {
+        return category;
     }
 }

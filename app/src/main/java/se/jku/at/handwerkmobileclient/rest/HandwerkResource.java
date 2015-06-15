@@ -95,4 +95,6 @@ public interface HandwerkResource {
      */
     public ServiceCategoryList getServiceCategories();
 
+    public boolean register(Manufacturer manufacturer);
+
 }

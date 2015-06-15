@@ -19,10 +19,10 @@ public class RestHelper {
 
     private static final String API_VERSION = "v4";
 
-    private static final String BASEURL_OFFLINE = "http://192.168.0.20:8080/HandwerkService/api/" + API_VERSION;
+    private static final String BASEURL_OFFLINE = "http://192.168.0.29:8080/HandwerkService/api/" + API_VERSION;
     private static final String BASEURL_ONLINE = "http://itchyaut22.ddns.net:8080/HandwerkService/api/" + API_VERSION;
 
-    private static Client client;
+    private static Client client, client2;
 
     protected static WebTarget getWebTarget() {
         if (client == null) {
@@ -31,6 +31,19 @@ public class RestHelper {
             } catch (Exception e) {}
         }
         return client.target((DEBUG_MODE ? BASEURL_OFFLINE : BASEURL_ONLINE));
+    }
+
+    protected static WebTarget getWebTargetWithoutApiLevel() {
+        //if (client2 == null) {
+            try {
+                client2 = ClientBuilder.newClient().register(AndroidFriendlyFeature.class);
+            } catch (Exception e) {}
+        //}
+
+        String target = (DEBUG_MODE ? BASEURL_OFFLINE : BASEURL_ONLINE);
+        target = target.replace("/" + API_VERSION, "");
+
+        return client2.target(target);
     }
 
     public static class AndroidFriendlyFeature implements Feature {

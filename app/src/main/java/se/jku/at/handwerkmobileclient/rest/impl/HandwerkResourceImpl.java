@@ -35,6 +35,7 @@ public class HandwerkResourceImpl implements HandwerkResource {
     }
 
     private Invocation.Builder addAuthHeader(Invocation.Builder builder) {
+        if (accessToken == null) return builder;
         return builder.header(AUTHORIZATION, BEARER + accessToken);
     }
 
@@ -49,6 +50,7 @@ public class HandwerkResourceImpl implements HandwerkResource {
             String json = response.readEntity(String.class);
             ObjectMapper mapper = new ObjectMapper();
             list = mapper.readValue(json, ManufacturerList.class);
+
             return list;
         } catch (Exception e) {
             //e.printStackTrace();
@@ -244,5 +246,24 @@ public class HandwerkResourceImpl implements HandwerkResource {
             //e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public boolean register(Manufacturer manufacturer) {
+        try {
+            WebTarget service = RestHelper.getWebTargetWithoutApiLevel();
+            service = service.path("register");
+            System.out.println(service);
+            ObjectMapper mapper = new ObjectMapper();
+            String inputjson = mapper.writeValueAsString(manufacturer);
+            Entity<String> entity = Entity.entity(inputjson, MediaType.APPLICATION_JSON);
+            Invocation.Builder builder = service.request();
+            Response response = builder.put(entity);
+            String json = response.readEntity(String.class);
+            if (response.getStatus() == 201) return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

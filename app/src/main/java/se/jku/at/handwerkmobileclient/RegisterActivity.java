@@ -1,4 +1,4 @@
-package se.jku.at.handwerkmobileclient.activities;
+package se.jku.at.handwerkmobileclient;
 
 import android.content.Intent;
 
@@ -11,17 +11,19 @@ import java.util.Random;
 
 import se.jku.at.handwerkmobileclient.BuildConfig;
 import se.jku.at.handwerkmobileclient.R;
+import se.jku.at.handwerkmobileclient.activities.BaseActivity;
 import se.jku.at.handwerkmobileclient.model.Manufacturer;
+import se.jku.at.handwerkmobileclient.model.User;
 import se.jku.at.handwerkmobileclient.rest.HandwerkResource;
 import se.jku.at.handwerkmobileclient.rest.impl.HandwerkResourceImpl;
 import se.jku.at.handwerkmobileclient.security.BCrypt;
 import se.jku.at.handwerkmobileclient.views.InsertItemView;
 
 /**
- * Created by Martin on 15.05.15.
+ * Created by Martin on 15.06.15.
  */
 @EActivity(R.layout.activity_insert_manufacturer)
-public class AddManufacturerActivity extends BaseActivity {
+public class RegisterActivity extends BaseActivity {
 
     @ViewById(R.id.activity_insert_manuf_name)
     protected InsertItemView tv_name;
@@ -50,7 +52,6 @@ public class AddManufacturerActivity extends BaseActivity {
     @ViewById(R.id.activity_insert_manuf_info)
     protected InsertItemView tv_info;
 
-
     @AfterViews
     void init() {
         if (BuildConfig.DEBUG) {
@@ -62,6 +63,11 @@ public class AddManufacturerActivity extends BaseActivity {
             tv_plz.setValue("4040");
             tv_city.setValue("Linz");
             tv_country.setValue("Austria");
+            String tel = "";
+            for (int u = 0; u < 10; ++u) {
+                tel += String.valueOf(r.nextInt(9));
+            }
+            tv_tel.setValue(tel);
             tv_email.setValue("test" + i + "@test.at");
         }
     }
@@ -111,14 +117,15 @@ public class AddManufacturerActivity extends BaseActivity {
             return;
         }
 
-        String securePwd = BCrypt.hashpw(password, BCrypt.gensalt(6));
+        //String securePwd = BCrypt.hashpw(password, BCrypt.gensalt(6));
 
         try {
+            User.getInstance("guest");
             final HandwerkResource res = new HandwerkResourceImpl();
             final Manufacturer manufacturer = new Manufacturer(name, city, address, plz, country, tel, email, info);
-            manufacturer.setPassword(securePwd);
+            manufacturer.setPassword(password);
 
-            if (res.addManufacturer(manufacturer)) { // REST Call
+            if (res.register(manufacturer)) { // REST Call
                 Intent intent = new Intent();
                 intent.putExtra("username", name);
                 setResult(0, intent);

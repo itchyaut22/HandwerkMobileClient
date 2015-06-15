@@ -1,5 +1,7 @@
 package se.jku.at.handwerkmobileclient.activities;
 
+import android.graphics.Color;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -11,6 +13,7 @@ import org.androidannotations.annotations.ViewById;
 import se.jku.at.handwerkmobileclient.R;
 import se.jku.at.handwerkmobileclient.model.Manufacturer;
 import se.jku.at.handwerkmobileclient.model.Service;
+import se.jku.at.handwerkmobileclient.model.User;
 import se.jku.at.handwerkmobileclient.rest.HandwerkResource;
 import se.jku.at.handwerkmobileclient.rest.impl.HandwerkResourceImpl;
 
@@ -25,6 +28,9 @@ public class ServiceDetailActivity extends BaseActivity {
 
     @ViewById(R.id.service_detail_price)
     TextView price;
+
+    @ViewById(R.id.service_detail_category)
+    TextView category;
 
     @ViewById(R.id.service_detail_details)
     TextView details;
@@ -44,6 +50,9 @@ public class ServiceDetailActivity extends BaseActivity {
     @ViewById(R.id.service_detail_email)
     TextView email;
 
+    @ViewById(R.id.deleteButton)
+    Button btnDelete;
+
     private Service service;
     private Manufacturer manufacturer;
 
@@ -56,6 +65,7 @@ public class ServiceDetailActivity extends BaseActivity {
                 headline.setText(service.getHeadline());
                 details.setText(service.getDetailInfo());
                 price.setText(service.getPrice() + " €");
+                category.setText(service.getCategory().toString());
             }
 
             if (service != null && manufacturer != null) {
@@ -65,6 +75,21 @@ public class ServiceDetailActivity extends BaseActivity {
                 tel.setText(manufacturer.getTel());
                 email.setText(manufacturer.getEmail());
             }
+
+            switch (User.instance.getCategory()) {
+                case ADMINISTRATOR:
+                    break;
+                case USER:
+                    if (User.instance.getManufacturer().getId() != service.getSupplierid()) {
+                        setButtonEnabled(false);
+                    }
+                    else
+                    break;
+                case GUEST:
+                    setButtonEnabled(false);
+                    break;
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -81,6 +106,13 @@ public class ServiceDetailActivity extends BaseActivity {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void setButtonEnabled(boolean enabled) {
+        if (!enabled) {
+            btnDelete.setClickable(false);
+            btnDelete.setBackgroundColor(Color.parseColor("#808080"));
         }
     }
 }

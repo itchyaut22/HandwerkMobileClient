@@ -29,6 +29,15 @@
             </se.jku.at.handwerkmobileclient.views.InsertItemView_>
 
             <se.jku.at.handwerkmobileclient.views.InsertItemView_
+                app:titleText="Password"
+                android:id="@+id/activity_insert_manuf_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:inputType="textPassword" >
+            </se.jku.at.handwerkmobileclient.views.InsertItemView_>
+
+            <se.jku.at.handwerkmobileclient.views.InsertItemView_
                 app:titleText="Adresse"
                 android:id="@+id/activity_insert_manuf_address"
                 android:layout_width="match_parent"
@@ -84,6 +93,19 @@
                 android:inputType="text" >
             </se.jku.at.handwerkmobileclient.views.InsertItemView_>
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Handwerker hinzufügen"
+                android:id="@+id/activity_insert_manuf_bAdd"
+                android:layout_gravity="center_horizontal"
+                android:background="@android:color/holo_green_light"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp" />
+
         </LinearLayout>
 
     </ScrollView>
@@ -95,19 +117,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal">
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Handwerker hinzufügen"
-            android:id="@+id/activity_insert_manuf_bAdd"
-            android:layout_gravity="center_horizontal"
-            android:background="@android:color/holo_green_light"
-            android:textStyle="bold"
-            android:textColor="@android:color/white"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="5dp" />
 
     </LinearLayout>
 
