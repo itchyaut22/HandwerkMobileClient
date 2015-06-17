@@ -128,7 +128,7 @@ public class LoginActivity extends BaseActivity {
 
                     if (accessToken == null) {
                         OAuthClientRequest request = OAuthClientRequest
-                                .tokenLocation("http://192.168.0.29:8080/HandwerkService/" + "api/token")
+                                .tokenLocation("http://ec2.mayerb.net:8080/HandwerkService/" + "api/token")
                                 .setGrantType(GrantType.PASSWORD)
                                 .setClientId("oauth2test")
                                 .setClientSecret("oauth2clientsecret")
