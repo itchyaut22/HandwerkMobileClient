@@ -5,6 +5,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import se.jku.at.handwerkmobileclient.fragments.*;
+import se.jku.at.handwerkmobileclient.model.User;
+import se.jku.at.handwerkmobileclient.model.UserCategory;
 
 /**
  * @Brief Der PagerAdapter handelt die einzelnen Fragments
@@ -49,6 +51,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // get item count - equal to number of tabs
+        if (User.instance != null && User.instance.getCategory() == UserCategory.GUEST) return 1;
         return 2;
     }
 

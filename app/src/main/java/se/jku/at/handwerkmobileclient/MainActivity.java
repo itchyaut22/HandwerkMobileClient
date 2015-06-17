@@ -23,6 +23,8 @@ import se.jku.at.handwerkmobileclient.model.Manufacturer;
 import se.jku.at.handwerkmobileclient.model.ManufacturerList;
 import se.jku.at.handwerkmobileclient.model.Service;
 import se.jku.at.handwerkmobileclient.model.ServiceList;
+import se.jku.at.handwerkmobileclient.model.User;
+import se.jku.at.handwerkmobileclient.model.UserCategory;
 import se.jku.at.handwerkmobileclient.rest.HandwerkResource;
 import se.jku.at.handwerkmobileclient.rest.impl.HandwerkResourceImpl;
 
@@ -35,11 +37,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
     @ViewById(R.id.pager)
     ViewPager viewPager;
-
-    @ViewById(R.id.navList)
-    ListView mDrawerList;
-
-    private ArrayAdapter<String> mAdapter2;
 
     @AfterViews
     public void init() {
@@ -55,20 +52,30 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         // Specify that tabs should be displayed in the action bar.
         actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
+        boolean guestUser = (User.instance != null && User.instance.getCategory() == UserCategory.GUEST);
+
+
         // create new tabs and and set up the titles of the tabs
         ActionBar.Tab mFindTab = actionbar.newTab().setText(
                 getString(R.string.ui_tabname_list));
-        ActionBar.Tab mChatTab = actionbar.newTab().setText(
-                getString(R.string.ui_tabname_map));
 
         // bind the fragments to the tabs - set up tabListeners for each tab
         mFindTab.setTabListener(this);
-        mChatTab.setTabListener(this);
-
-        // add the tabs to the action bar
         actionbar.addTab(mFindTab);
-        actionbar.addTab(mChatTab);
 
+        if (guestUser) {
+            actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+        } else {
+            ActionBar.Tab mChatTab = actionbar.newTab().setText(
+                    getString(R.string.ui_tabname_map));
+
+
+            mChatTab.setTabListener(this);
+
+
+            actionbar.addTab(mChatTab);
+        }
+        
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
@@ -86,11 +93,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             public void onPageScrollStateChanged(int arg0) {
             }
         });
-
-        String[] osArray = { "Android", "iOS", "Windows", "OS X", "Linux" };
-        mAdapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
-        mDrawerList.setAdapter(mAdapter2);
-
     }
 
     @Override
