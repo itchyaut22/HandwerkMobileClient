@@ -14,6 +14,7 @@ import se.jku.at.handwerkmobileclient.R;
 import se.jku.at.handwerkmobileclient.activities.BaseActivity;
 import se.jku.at.handwerkmobileclient.model.Manufacturer;
 import se.jku.at.handwerkmobileclient.model.User;
+import se.jku.at.handwerkmobileclient.model.UserCategory;
 import se.jku.at.handwerkmobileclient.rest.HandwerkResource;
 import se.jku.at.handwerkmobileclient.rest.impl.HandwerkResourceImpl;
 import se.jku.at.handwerkmobileclient.security.BCrypt;
@@ -124,6 +125,7 @@ public class RegisterActivity extends BaseActivity {
             final HandwerkResource res = new HandwerkResourceImpl();
             final Manufacturer manufacturer = new Manufacturer(name, city, address, plz, country, tel, email, info);
             manufacturer.setPassword(password);
+            manufacturer.setUserCategory(UserCategory.USER); // Es können nur USER hinzugefügt werden
 
             if (res.register(manufacturer)) { // REST Call
                 Intent intent = new Intent();

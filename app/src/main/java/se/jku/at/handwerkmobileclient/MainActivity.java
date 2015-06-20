@@ -75,7 +75,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
             actionbar.addTab(mChatTab);
         }
-        
+
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
